@@ -1,0 +1,1 @@
+/usr/bin/c++       CMakeFiles/XTPApiDemo.dir/quote_spi.cpp.o CMakeFiles/XTPApiDemo.dir/trade_spi.cpp.o CMakeFiles/XTPApiDemo.dir/xtp_api_demo.cpp.o CMakeFiles/XTPApiDemo.dir/FileUtils.cpp.o  -o ../api/XTPApiDemo  -L/root/xtp/api -rdynamic -lxtptraderapi -lxtpquoteapi -Wl,-rpath,/root/xtp/api 
