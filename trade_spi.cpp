@@ -6,7 +6,7 @@
 #include <stdio.h>
 #include <sys/timeb.h>
 #include <time.h>
-#ifndef WIN32
+#ifndef _WIN32
 #include <sys/time.h>
 #include <unistd.h>
 #else
@@ -35,7 +35,7 @@ MyTraderSpi::MyTraderSpi()
     insert_order_num = 0;
     cancel_order_num = 0;
 
-#ifndef WIN32
+#ifndef _WIN32
     std::string orderName = "log/";
     std::string tradeName = "log/";
     std::string fundName = "log/";
@@ -53,9 +53,9 @@ MyTraderSpi::MyTraderSpi()
     std::string qryTradeName = "log\\";
     std::string cancelOrderName = "log\\";
     std::string positionCountName = "log\\";
-#endif // !WIN32
+#endif // !_WIN32
 
-#ifndef WIN32
+#ifndef _WIN32
     struct timeval start;
     gettimeofday(&start, 0);
     stringstream ss;
@@ -149,7 +149,7 @@ void MyTraderSpi::OnDisconnected(uint64_t session_id, int reason)
 	Sleep(1000);
 #else
 	sleep(1);
-#endif // WIN32
+#endif // _WIN32
 	std::string account_name = fileUtils->stdStringForKey("account[%d].user", aid);
 	std::string account_pw = fileUtils->stdStringForKey("account[%d].password", aid);
 	temp_session_id_ = pUserApi->Login(trade_server_ip.c_str(), trade_server_port, account_name.c_str(), account_pw.c_str(), XTP_PROTOCOL_TCP);
@@ -195,7 +195,7 @@ void MyTraderSpi::OnOrderEvent(XTPOrderInfo* order_info, XTPRI* error_info, uint
     }
 
     if (save_to_file_) {
-#ifdef WIN32
+#ifdef _WIN32
 	SYSTEMTIME wtm;
 	GetLocalTime(&wtm);
 	fout_order << "[" << wtm.wHour << ":" << wtm.wMinute << ":" << wtm.wSecond << "." << wtm.wMilliseconds << "],";
@@ -208,7 +208,7 @@ void MyTraderSpi::OnOrderEvent(XTPOrderInfo* order_info, XTPRI* error_info, uint
 	lt = time(NULL);
 	ptr = localtime(&lt);
 	fout_order << "[" << ptr->tm_hour << ":" << ptr->tm_min << ":" << ptr->tm_sec << "." << start.tv_usec << "],";
-#endif // WIN32
+#endif // _WIN32
 
 	fout_order << "xtp_id:" << order_info->order_xtp_id << ",client_id:" << order_info->order_client_id << ",status:" << order_info->order_status << ",cancel_xtp_id:" << order_info->order_cancel_xtp_id << ",cancel_client_id:" << order_info->order_cancel_client_id;
 	fout_order << ",order_submit_status:" << order_info->order_submit_status << ",ticker:" << order_info->ticker << ",market:" << order_info->market << ",price:" << order_info->price;
@@ -260,7 +260,7 @@ void MyTraderSpi::OnTradeEvent(XTPTradeReport* trade_info, uint64_t session_id)
     }
 
     if (save_to_file_) {
-#ifdef WIN32
+#ifdef _WIN32
 	SYSTEMTIME wtm;
 	GetLocalTime(&wtm);
 	fout_trade << "[" << wtm.wHour << ":" << wtm.wMinute << ":" << wtm.wSecond << "." << wtm.wMilliseconds << "],";
@@ -273,7 +273,7 @@ void MyTraderSpi::OnTradeEvent(XTPTradeReport* trade_info, uint64_t session_id)
 	lt = time(NULL);
 	ptr = localtime(&lt);
 	fout_trade << "[" << ptr->tm_hour << ":" << ptr->tm_min << ":" << ptr->tm_sec << "." << start.tv_usec << "],";
-#endif // WIN32
+#endif // _WIN32
 	fout_trade << "xtp_id:" << trade_info->order_xtp_id << ",client_id:" << trade_info->order_client_id;
 	fout_trade << ",ticker:" << trade_info->ticker << ",market:" << trade_info->market << ",price:" << trade_info->price;
 	fout_trade << ",quantity:" << trade_info->quantity << ",side:" << trade_info->side << ",trade_time:" << trade_info->trade_time << ",trade_amount:" << trade_info->trade_amount;
@@ -297,7 +297,7 @@ void MyTraderSpi::OnQueryOrder(XTPQueryOrderRsp* order_info, XTPRI* error_info, 
     // 	cout << "OnQueryOrder: " << order_info->ticker << ":" << order_info->order_xtp_id  << ":" << request_id << ":" << is_last << endl;
 
     if (save_to_file_) {
-#ifdef WIN32
+#ifdef _WIN32
 	SYSTEMTIME wtm;
 	GetLocalTime(&wtm);
 	fout_qry_order << "[" << wtm.wHour << ":" << wtm.wMinute << ":" << wtm.wSecond << "." << wtm.wMilliseconds << "],";
@@ -310,7 +310,7 @@ void MyTraderSpi::OnQueryOrder(XTPQueryOrderRsp* order_info, XTPRI* error_info, 
 	lt = time(NULL);
 	ptr = localtime(&lt);
 	fout_qry_order << "[" << ptr->tm_hour << ":" << ptr->tm_min << ":" << ptr->tm_sec << "." << start.tv_usec << "],";
-#endif // WIN32
+#endif // _WIN32
 	fout_qry_order << "xtp_id:" << order_info->order_xtp_id << ",client_id:" << order_info->order_client_id << ",status:" << order_info->order_status << ",cancel_xtp_id:" << order_info->order_cancel_xtp_id << ",cancel_client_id:" << order_info->order_cancel_client_id;
 	fout_qry_order << ",order_submit_status:" << order_info->order_submit_status << ",ticker:" << order_info->ticker << ",market:" << order_info->market << ",price:" << order_info->price;
 	fout_qry_order << ",quantity:" << order_info->quantity << ",price_type:" << order_info->price_type << ",side:" << order_info->side << ",qty_traded:" << order_info->qty_traded << ",qty_left:" << order_info->qty_left;
@@ -337,7 +337,7 @@ void MyTraderSpi::OnQueryPosition(XTPQueryStkPositionRsp* investor_position, XTP
 {
 
     if (save_to_file_) {
-#ifdef WIN32
+#ifdef _WIN32
 	SYSTEMTIME wtm;
 	GetLocalTime(&wtm);
 	fout_position << "time:" << wtm.wSecond << "." << wtm.wMilliseconds << ",";
@@ -352,7 +352,7 @@ void MyTraderSpi::OnQueryPosition(XTPQueryStkPositionRsp* investor_position, XTP
 	ptr = localtime(&lt);
 	fout_position << "[" << ptr->tm_hour << ":" << ptr->tm_min << ":" << ptr->tm_sec << "." << start.tv_usec << "],";
 
-#endif // WIN32
+#endif // _WIN32
 
 	fout_position << "request_id:" << request_id << ",is_last:" << is_last << ",";
 	fout_position << "ticker:" << investor_position->ticker << ",ticker_name:" << investor_position->ticker_name;
@@ -367,7 +367,7 @@ void MyTraderSpi::OnQueryAsset(XTPQueryAssetRsp* trading_account, XTPRI* error_i
     // 	cout << "OnQueryTradingAccount: " << trading_account->buying_power << ":" << trading_account->fund_buy_amount << ":" << request_id << ":" << is_last << endl;
 
     if (save_to_file_) {
-#ifdef WIN32
+#ifdef _WIN32
 	SYSTEMTIME wtm;
 	GetLocalTime(&wtm);
 	fout_fund << "time:" << wtm.wSecond << "." << wtm.wMilliseconds << ",";
@@ -379,7 +379,7 @@ void MyTraderSpi::OnQueryAsset(XTPQueryAssetRsp* trading_account, XTPRI* error_i
 	lt = time(NULL);
 	ptr = localtime(&lt);
 	fout_fund << "[" << ptr->tm_hour << ":" << ptr->tm_min << ":" << ptr->tm_sec << "." << start.tv_usec << "],";
-#endif // WIN32
+#endif // _WIN32
 	fout_fund << "request_id:" << request_id << ",total_asset:" << setprecision(14) << trading_account->total_asset << ",security_asset:" << setprecision(16) << trading_account->security_asset;
 	fout_fund << ",buying_power:" << setprecision(16) << trading_account->buying_power << ",fund_buy_amount:" << setprecision(16) << trading_account->fund_buy_amount;
 	fout_fund << ",fund_buy_fee:" << setprecision(16) << trading_account->fund_buy_fee << ",fund_sell_amount:" << setprecision(16) << trading_account->fund_sell_amount << ",fund_sell_fee:" << setprecision(16) << trading_account->fund_sell_fee << endl;
