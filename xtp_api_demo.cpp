@@ -1,7 +1,7 @@
 // testTradeApi.cpp : 定义控制台应用程序的入口点。
 //
 
-#include "xtp_trader_api.h"
+#include "./api/xtp_trader_api.h"
 #include <iostream>
 #include <map>
 #include <string>
@@ -15,7 +15,7 @@
 #include "FileUtils.h"
 #include "quote_spi.h"
 #include "trade_spi.h"
-#include "xtp_quote_api.h"
+#include "./api/xtp_quote_api.h"
 
 XTP::API::TraderApi* pUserApi;
 bool is_connected_ = false;
@@ -165,46 +165,46 @@ int main()
 	}
     }
 
-    // if (session_id_ > 0) {
-    //     //有用户成功登录交易服务器
-    //     std::cout << "Login to server success." << std::endl;
-    //
-    //     is_connected_ = true;
+    if (session_id_ > 0) {
+	//有用户成功登录交易服务器
+	std::cout << "Login to server success." << std::endl;
+
+	is_connected_ = true;
 
 	//每个用户均根据配置文件报单
-//         for (int i = 0; i < account_count; i++) {
-//             //从配置文件中读取报单信息
-//             int j = 0;
-//             orderList[i].order_client_id = i;
-//             std::string instrument = fileUtils->stdStringForKey("order[%d].instrument_id", j);
-//             strcpy(orderList[i].ticker, instrument.c_str());
-//             orderList[i].market = (XTP_MARKET_TYPE)fileUtils->intForKey("order[%d].exchange", j);
-//             orderList[i].price = fileUtils->floatForKey("order[%d].price", j);
-//             orderList[i].quantity = fileUtils->intForKey("order[%d].quantity", j);
-//             orderList[i].side = (XTP_SIDE_TYPE)fileUtils->intForKey("order[%d].side", j);
-//             orderList[i].price_type = (XTP_PRICE_TYPE)fileUtils->intForKey("order[%d].price_type", j);
-//             orderList[i].business_type = (XTP_BUSINESS_TYPE)fileUtils->intForKey("order[%d].business_type", j);
-//
-//             if (session_arrary[i] == 0) {
-//                 //用户登录不成功时，跳过
-//                 continue;
-//             }
-//
-//             //报单
-//             int64_t xtp_id = pUserApi->InsertOrder(&(orderList[i]), session_arrary[i]);
-//             if (xtp_id == 0) {
-//                 //报单不成功时，等待一会儿，跳过
-// #ifdef _WIN32
-//                 Sleep(1000);
-// #else
-//                 sleep(1);
-// #endif // WIN32
-//                 continue;
-//             }
+	for (int i = 0; i < account_count; i++) {
+	    //从配置文件中读取报单信息
+	    int j = 0;
+	    orderList[i].order_client_id = i;
+	    std::string instrument = fileUtils->stdStringForKey("order[%d].instrument_id", j);
+	    strcpy(orderList[i].ticker, instrument.c_str());
+	    orderList[i].market = (XTP_MARKET_TYPE)fileUtils->intForKey("order[%d].exchange", j);
+	    orderList[i].price = fileUtils->floatForKey("order[%d].price", j);
+	    orderList[i].quantity = fileUtils->intForKey("order[%d].quantity", j);
+	    orderList[i].side = (XTP_SIDE_TYPE)fileUtils->intForKey("order[%d].side", j);
+	    orderList[i].price_type = (XTP_PRICE_TYPE)fileUtils->intForKey("order[%d].price_type", j);
+	    orderList[i].business_type = (XTP_BUSINESS_TYPE)fileUtils->intForKey("order[%d].business_type", j);
 
-	//     std::string account_name = fileUtils->stdStringForKey("account[%d].user", i);
-	//     std::cout << account_name << " insert order success." << std::endl;
-	// }
+	    if (session_arrary[i] == 0) {
+		//用户登录不成功时，跳过
+		continue;
+	    }
+
+	    //报单
+	    int64_t xtp_id = pUserApi->InsertOrder(&(orderList[i]), session_arrary[i]);
+	    if (xtp_id == 0) {
+		//报单不成功时，等待一会儿，跳过
+#ifdef _WIN32
+		Sleep(1000);
+#else
+		sleep(1);
+#endif // WIN32
+		continue;
+	    }
+
+	    std::string account_name = fileUtils->stdStringForKey("account[%d].user", i);
+	    std::cout << account_name << " insert order success." << std::endl;
+	}
 
 	//主线程循环，防止进程退出
 	while (true) {

@@ -75,7 +75,8 @@ std::string FileUtils::stdStringForKey(const char* keyPathFormat, ...)
     va_list args;
     va_start(args, keyPathFormat);
 #ifdef _WIN32
-    vsprintf_s(keyPath, keyPathFormat, args);
+    // sprintf_s(keyPath, keyPathFormat, args);
+    vsprintf(keyPath, keyPathFormat, args);
 #else
     vsprintf(keyPath, keyPathFormat, args);
 #endif // _WIN32
@@ -104,7 +105,8 @@ int FileUtils::intForKey(const char* keyPathFormat, ...)
     va_list args;
     va_start(args, keyPathFormat);
 #ifdef _WIN32
-    vsprintf_s(keyPath, keyPathFormat, args);
+    // sprintf_s(keyPath, keyPathFormat, args);
+    vsprintf(keyPath, keyPathFormat, args);
 #else
     vsprintf(keyPath, keyPathFormat, args);
 #endif // _WIN32
@@ -133,7 +135,8 @@ int FileUtils::countForKey(const char* keyPathFormat, ...)
     va_list args;
     va_start(args, keyPathFormat);
 #ifdef _WIN32
-    vsprintf_s(keyPath, keyPathFormat, args);
+    // sprintf_s(keyPath, keyPathFormat, args);
+    vsprintf(keyPath, keyPathFormat, args);
 #else
     vsprintf(keyPath, keyPathFormat, args);
 #endif // _WIN32
@@ -162,7 +165,8 @@ double FileUtils::floatForKey(const char* keyPathFormat, ...)
     va_list args;
     va_start(args, keyPathFormat);
 #ifdef _WIN32
-    vsprintf_s(keyPath, keyPathFormat, args);
+    // sprintf_s(keyPath, keyPathFormat, args);
+    vsprintf(keyPath, keyPathFormat, args);
 #else
     vsprintf(keyPath, keyPathFormat, args);
 #endif // _WIN32
@@ -191,7 +195,8 @@ bool FileUtils::boolForKey(const char* keyPathFormat, ...)
     va_list args;
     va_start(args, keyPathFormat);
 #ifdef _WIN32
-    vsprintf_s(keyPath, keyPathFormat, args);
+    // sprintf_s(keyPath, keyPathFormat, args);
+    vsprintf(keyPath, keyPathFormat, args);
 #else
     vsprintf(keyPath, keyPathFormat, args);
 #endif // _WIN32
