@@ -1,8 +1,8 @@
 #ifndef _FILEUTILS_H_
 #define _FILEUTILS_H_
 
-#include ".\include\rapidjson\document.h"
-#include ".\include\rapidjson\reader.h"
+#include "./include/rapidjson/document.h"
+#include "./include/rapidjson/reader.h"
 #include <string>
 
 //using namespace rapidjson;

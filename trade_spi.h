@@ -1,5 +1,5 @@
 #pragma once
-#include ".\api\xtp_trader_api.h"
+#include "./api/xtp_trader_api.h"
 #include <fstream>
 
 #define _IS_LOG_SHOW_ 0

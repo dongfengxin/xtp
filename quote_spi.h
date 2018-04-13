@@ -1,5 +1,5 @@
 #pragma once
-#include ".\api\xtp_quote_api.h"
+#include "./api/xtp_quote_api.h"
 #include <fstream>
 #include <sys/timeb.h>
 #include <time.h>
