@@ -6,83 +6,80 @@
 #ifndef _XQUOTE_API_STRUCT_H_
 #define _XQUOTE_API_STRUCT_H_
 
-#include <stdint.h>
 #include "xtp_api_data_type.h"
+#include <stdint.h>
 
 #pragma pack(8)
 
 ///指定的合约
-typedef struct XTPSpecificTickerStruct
-{
+typedef struct XTPSpecificTickerStruct {
     ///交易所代码
     XTP_EXCHANGE_TYPE exchange_id;
     ///合约代码（不包含交易所信息）例如"600000"，不带空格，以'\0'结尾
-	char	ticker[XTP_TICKER_LEN];
+    char ticker[XTP_TICKER_LEN];
 } XTPST;
 
-
 ///行情
-typedef struct XTPMarketDataStruct
-{
+typedef struct XTPMarketDataStruct {
     // 代码
     ///交易所代码
     XTP_EXCHANGE_TYPE exchange_id;
     ///合约代码（不包含交易所信息），不带空格，以'\0'结尾
-    char	ticker[XTP_TICKER_LEN];
+    char ticker[XTP_TICKER_LEN];
 
     // 股票等价格
-	///最新价
-	double	last_price;
-	///昨收盘
-	double	pre_close_price;
-	///今开盘
-	double	open_price;
-	///最高价
-	double	high_price;
-	///最低价
-	double	low_price;
+    ///最新价
+    double last_price;
+    ///昨收盘
+    double pre_close_price;
+    ///今开盘
+    double open_price;
+    ///最高价
+    double high_price;
+    ///最低价
+    double low_price;
     ///今收盘
-    double	close_price;
+    double close_price;
 
     // 期货等数据
     ///昨持仓量（目前未填写）
-    double	pre_open_interest;
+    double pre_open_interest;
     ///持仓量（目前未填写）
-	double	open_interest;
+    double open_interest;
     ///上次结算价（目前未填写）
-    double	pre_settlement_price;
+    double pre_settlement_price;
     ///本次结算价（目前未填写）
-	double	settlement_price;
+    double settlement_price;
 
-	///涨停板价（目前未填写）
-	double	upper_limit_price;
-	///跌停板价（目前未填写）
-	double	lower_limit_price;
-	///昨虚实度（目前未填写）
-	double	pre_delta;
-	///今虚实度（目前未填写）
-	double	curr_delta;
+    ///涨停板价（目前未填写）
+    double upper_limit_price;
+    ///跌停板价（目前未填写）
+    double lower_limit_price;
+    ///昨虚实度（目前未填写）
+    double pre_delta;
+    ///今虚实度（目前未填写）
+    double curr_delta;
 
     /// 时间类，格式为YYYYMMDDHHMMSSsss
     int64_t data_time;
 
     // 量额数据
     ///数量，为总成交量（单位股，与交易所一致）
-    int64_t	qty;
+    int64_t qty;
     ///成交金额，为总成交金额（单位元，与交易所一致）
-    double	turnover;
+    double turnover;
     ///当日均价=(turnover/qty)
-    double	avg_price;
+    double avg_price;
 
     // 买卖盘
     ///十档申买价
     double bid[10];
     ///十档申卖价
-    double	ask[10];
+    double ask[10];
     ///十档申买量
-    int64_t	bid_qty[10];
+    int64_t bid_qty[10];
     ///十档申卖量
-    int64_t	ask_qty[10];
+    int64_t ask_qty[10];
 
     // 额外数据（以下数据目前未填写）
     ///成交笔数
@@ -159,45 +156,43 @@ typedef struct XTPMarketDataStruct
     double pe_ratio2;
 } XTPMD;
 
-
 ///股票行情静态信息
 typedef struct XTPQuoteStaticInfo {
     ///交易所代码
     XTP_EXCHANGE_TYPE exchange_id;
     ///合约代码（不包含交易所信息），不带空格，以'\0'结尾
-    char    ticker[XTP_TICKER_LEN];
+    char ticker[XTP_TICKER_LEN];
     /// 合约名称
-    char    ticker_name[XTP_TICKER_NAME_LEN];
+    char ticker_name[XTP_TICKER_NAME_LEN];
     /// 合约类型
-	XTP_TICKER_TYPE ticker_type;
+    XTP_TICKER_TYPE ticker_type;
     ///昨收盘
-    double  pre_close_price;
+    double pre_close_price;
     ///涨停板价
-    double  upper_limit_price;
+    double upper_limit_price;
     ///跌停板价
-    double  lower_limit_price;
-	///最小变动价位
-	double  price_tick;
+    double lower_limit_price;
+    ///最小变动价位
+    double price_tick;
     /// 合约最小交易量(买)
-    int32_t  buy_qty_unit;
+    int32_t buy_qty_unit;
     /// 合约最小交易量(卖)
-	int32_t sell_qty_unit;
+    int32_t sell_qty_unit;
 } XTPQSI;
-
 
 ///定单薄
 typedef struct OrderBookStruct {
     ///交易所代码
     XTP_EXCHANGE_TYPE exchange_id;
     ///合约代码（不包含交易所信息），不带空格，以'\0'结尾
-    char    ticker[XTP_TICKER_LEN];
+    char ticker[XTP_TICKER_LEN];
 
     ///最新价
     double last_price;
     ///数量，为总成交量
     int64_t qty;
     ///成交金额，为总成交金额
-    double  turnover;
+    double turnover;
     ///成交笔数
     int64_t trades_count;
 
@@ -205,7 +200,7 @@ typedef struct OrderBookStruct {
     ///十档申买价
     double bid[10];
     ///十档申卖价
-    double  ask[10];
+    double ask[10];
     ///十档申买量
     int64_t bid_qty[10];
     ///十档申卖量
@@ -216,7 +211,6 @@ typedef struct OrderBookStruct {
 
 ////////////////////////////////// 逐笔数据
 
-
 ///逐笔委托(仅适用深交所)
 struct XTPTickByTickEntrust {
     ///频道代码
@@ -224,11 +218,11 @@ struct XTPTickByTickEntrust {
     ///委托序号(在同一个channel_no内唯一，从1开始连续)
     int64_t seq;
     ///委托价格
-    double  price;
+    double price;
     ///委托数量
     int64_t qty;
     ///'1':买; '2':卖; 'G':借入; 'F':出借
-    char  side;
+    char side;
     ///订单类别: '1': 市价; '2': 限价; '3': 本方最优
     char ord_type;
 };
@@ -268,11 +262,10 @@ typedef struct XTPTickByTickStruct {
     XTP_TBT_TYPE type;
 
     union {
-        XTPTickByTickEntrust entrust;
-        XTPTickByTickTrade     trade;
+	XTPTickByTickEntrust entrust;
+	XTPTickByTickTrade trade;
     };
 } XTPTBT;
-
 
 ///供查询的最新信息
 typedef struct XTPTickerPriceInfo {
@@ -284,7 +277,7 @@ typedef struct XTPTickerPriceInfo {
     double last_price;
 } XTPTPI;
 
-
 #pragma pack()
 
 #endif
+
