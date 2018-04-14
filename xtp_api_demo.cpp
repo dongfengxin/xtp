@@ -232,3 +232,4 @@ int main()
     return 0;
 }
 
+// clang -o windowsmain.exe -Wunknown-warning-option -Wexpansion-to-defined -Wdeprecated-declarations xtp_api_demo.cpp FileUtils.cpp quote_spi.cpp trade_spi.cpp xtpquoteapi.lib xtptraderapi.lib

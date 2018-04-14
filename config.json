@@ -18,7 +18,7 @@
 		{
 			"instrument_id": "600519",
 			"exchange": 2,
-			"price": 700,
+			"price": 700.0,
 			"quantity": 100,
 			"side": 1,
 			"price_type": 1,
