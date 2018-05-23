@@ -1,7 +1,7 @@
 // testTradeApi.cpp : 定义控制台应用程序的入口点。
 //
 
-#include "./api/xtp_trader_api.h"
+#include "../api/xtp_trader_api.h"
 #include <iostream>
 #include <map>
 #include <string>
@@ -15,7 +15,7 @@
 #include "FileUtils.h"
 #include "quote_spi.h"
 #include "trade_spi.h"
-#include "./api/xtp_quote_api.h"
+#include "../api/xtp_quote_api.h"
 
 XTP::API::TraderApi* pUserApi;
 bool is_connected_ = false;
